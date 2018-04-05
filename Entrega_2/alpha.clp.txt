@@ -1,0 +1,63 @@
+;made by @ignacioLavina and @ignaciokleinman
+
+; 1. Definir una plantilla (template) para declarar hechos borrosos sobre el (escaso,
+; medio y alto) interés de un tema utilizando las funciones z, pi y s respectivamente.
+
+(deftemplate interes 0.0 10.0
+  (
+    (escaso (z 3 5))
+    (medio (PI 2 5))
+    (alto (s 7 10))
+  ))
+
+; 2. Definir una plantilla para declarar hechos borrosos sobre la (poca y mucha)
+; notoriedad de una entidad usando una definición por puntos.
+
+(deftemplate notoriedad 0.0 10.0 importancia
+  (
+    (poca (4 1)(6 0))
+    (mucha (4 0)(6 1))
+  ))
+
+; 3. Definir una plantilla (template) para declarar hechos borrosos sobre la edad
+; del ponente (joven, madurito, adulto, prejubilado) utilizando una definición por puntos.
+
+(deftemplate edad-fuzzy 0.0 100.0
+  (
+    (joven (15 1)(26 0))
+    (madurito (23 0)(25 1)(30 1)(35 0))
+    (adulto (30 0)(35 1)(55 1)(60 0))
+    (prejubilado (50 0)(55 1))
+  ))
+
+; 4. Declarar el interés de cada tema propuesto como hechos borrosos usando la plantilla
+; del apartado 2.0. Por ejemplo, debéis declarar hechos como que el interés del
+; tema blockchain es escaso y el de los videojuegos alto.
+
+(deftemplate intereses
+  (slot tema(type SYMBOL)(allowed-symbols Tecnologia Medicina Ciencias Economia))
+  (slot interes (type FUZZY-VALUE interes))
+)
+
+(deffacts fuzzy-datos
+  (intereses (tema Tecnologia) (interes alto))
+  (intereses (tema Medicina) (interes medio))
+  (intereses (tema Ciencias) (interes alto))
+  (intereses (tema Economia) (interes escaso))
+)
+
+; 5.	Declarar la notoriedad de cada entidad a la que pertenece el ponente usando
+; la plantilla del aparatado 2-1. Por ejemplo, debéis declarar hechos como que
+; la notoriedad de la entidad Electrónica Arts. es mucha.
+
+(deftemplate notoriedades
+  (slot tema(type SYMBOL)(allowed-symbols Tecnologia Medicina Ciencias Economia))
+  (slot notoriedad (type FUZZY-VALUE notoriedad))
+)
+
+(deffacts fuzzy-datos
+  (notoriedades (tema Tecnologia) (notoriedad mucha))
+  (notoriedades (tema Medicina) (notoriedad mucha))
+  (notoriedades (tema Ciencias) (notoriedad poca))
+  (notoriedades (tema Economia) (notoriedad poca))
+)
