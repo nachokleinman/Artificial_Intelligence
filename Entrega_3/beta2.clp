@@ -1,5 +1,7 @@
 ;made by @ignacioLavina and @ignaciokleinman
 
+;Entrega 1 Objetivo: familiarizar se con CLIPS, razonamiento clásico sin nada fuzzy)
+
 ;Insertamos el numero total de charlas
 (deffacts numero_charlas "Numero de charlas" (charlas_disponibles 60))
 
@@ -89,7 +91,7 @@
     (edicion_techfest 2014)
   )
 )
-(deffacts charla8
+(deffacts charla9
   (charlas_plantilla
     (nombre "Miguel")
     (titulo_charla "iPhone2")
@@ -97,11 +99,91 @@
     (edicion_techfest 2014)
   )
 )
+(deffacts charla10
+  (charlas_plantilla
+    (nombre "Juan")
+    (titulo_charla "espacio")
+    (tema_charla Ciencias)
+    (edicion_techfest 2015)
+  )
+)
+
+
+
+;Entrega 2 Objetivo: Definición de plantillas y hechos borrosos
+; 1. Definir una plantilla (template) para declarar hechos borrosos sobre el (escaso,
+; medio y alto) interés de un tema utilizando las funciones z, pi y s respectivamente.
+
+(deftemplate interes 0.0 10.0
+  (
+    (escaso (z 3.0 5.0))
+    (medio (PI 2.0 5.0))
+    (alto (s 5.0 7.0))
+  ))
+
+; 2. Definir una plantilla para declarar hechos borrosos sobre la (poca y mucha)
+; notoriedad de una entidad usando una definición por puntos.
+
+(deftemplate notoriedad 0.0 10.0 importancia
+  (
+    (poca (4.0 1.0)(7.5 0.0))
+    (mucha (6.8 0.0)(10.0 1.0))
+  ))
+
+; 3. Definir una plantilla (template) para declarar hechos borrosos sobre la edad
+; del ponente (joven, madurito, adulto, prejubilado) utilizando una definición por puntos.
+
+(deftemplate edad-fuzzy 0.0 100.0
+  (
+    (joven (15 1)(26 0))
+    (madurito (23 0)(25 1)(30 1)(35 0))
+    (adulto (30 0)(35 1)(55 1)(60 0))
+    (prejubilado (50 0)(55 1))
+  ))
+
+; 4. Declarar el interés de cada tema propuesto como hechos borrosos usando la plantilla
+; del apartado 2.0. Por ejemplo, debéis declarar hechos como que el interés del
+; tema blockchain es escaso y el de los videojuegos alto.
+
+(deftemplate intereses
+  (slot tema(type SYMBOL)(allowed-symbols Tecnologia Medicina Ciencias Economia))
+  (slot interes (type FUZZY-VALUE interes))
+)
+
+
+
+; 5.	Declarar la notoriedad de cada entidad a la que pertenece el ponente usando
+; la plantilla del aparatado 2-1. Por ejemplo, debéis declarar hechos como que
+; la notoriedad de la entidad Electrónica Arts. es mucha.
+
+(deftemplate notoriedades
+  (slot tema(type SYMBOL)(allowed-symbols Tecnologia Medicina Ciencias Economia))
+  (slot notoriedad (type FUZZY-VALUE notoriedad))
+)
+
+(deffacts fuzzy-datos
+  (intereses (tema Tecnologia) (interes alto))
+  (intereses (tema Medicina) (interes medio))
+  (intereses (tema Ciencias) (interes alto))
+  (intereses (tema Economia) (interes escaso))
+  (notoriedades (tema Tecnologia) (notoriedad mucha))
+  (notoriedades (tema Medicina) (notoriedad mucha))
+  (notoriedades (tema Ciencias) (notoriedad poca))
+  (notoriedades (tema Economia) (notoriedad poca))
+)
+
+
+
+;Entrega 3 Objetivo: Definir reglas con antecedente borroso, uso de modificadores
+
+;3.0 Definir una regla que incluya en el techfest a las charlas de interés muy alto
+;(uso de modificador very) cuyos temas no hayan sido seleccionados previamente sin
+;superar el máximo número de charlas del techfest. Nota: consiste en modificar la
+;regla del apartado 1.2 incluyendo un nuevo antecedente. Ejecutarla como única regla y observar qué ocurre.
 
 
 ;Regla con la logica
 (defrule controlador_charlas
-
   ;Solo introduce charlas mientras haya huecos disponibles
   ?hecho <- (charlas_disponibles ?x)
   (test(> ?x 0))
@@ -113,6 +195,8 @@
     (edicion_techfest ?edi_candidata)
     (tema_charla ?tem_candidata)
   )
+
+
 
 (forall
     ;recogemos los datos de las charlas que ya están seleccionadas
@@ -137,6 +221,8 @@
       )
     )
   )
+  ;escoge temas de interés alto
+  (notoriedades (tema ?tem_candidata) (notoriedad ?h & somewhat mucha))
 =>
   ;reducimos charlas disponibles
   (retract ?hecho)
@@ -147,88 +233,26 @@
   (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", tema: " ?tem_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
 
+(fuzzy-intersection
+  (create-fuzzy-value notoriedad poca)
+  (create-fuzzy-value notoriedad mucha)
+)
+poca and mucha
 
-
-; 1. Definir una plantilla (template) para declarar hechos borrosos sobre el (escaso,
-; medio y alto) interés de un tema utilizando las funciones z, pi y s respectivamente.
-
-(deftemplate interes 0.0 10.0
-  (
-    (escaso (z 3 5))
-    (medio (PI 2 5))
-    (alto (s 7 10))
-  ))
-
-; 2. Definir una plantilla para declarar hechos borrosos sobre la (poca y mucha)
-; notoriedad de una entidad usando una definición por puntos.
-
-(deftemplate notoriedad 0.0 10.0 importancia
-  (
-    (poca (4 1)(6 0))
-    (mucha (4 0)(6 1))
-  ))
-
-; 3. Definir una plantilla (template) para declarar hechos borrosos sobre la edad
-; del ponente (joven, madurito, adulto, prejubilado) utilizando una definición por puntos.
-
-(deftemplate edad-fuzzy 0.0 100.0
-  (
-    (joven (15 1)(26 0))
-    (madurito (23 0)(25 1)(30 1)(35 0))
-    (adulto (30 0)(35 1)(55 1)(60 0))
-    (prejubilado (50 0)(55 1))
-  ))
-
-; 4. Declarar el interés de cada tema propuesto como hechos borrosos usando la plantilla
-; del apartado 2.0. Por ejemplo, debéis declarar hechos como que el interés del
-; tema blockchain es escaso y el de los videojuegos alto.
-
-(deftemplate intereses
-  (slot tema(type SYMBOL)(allowed-symbols Tecnologia Medicina Ciencias Economia))
-  (slot interes (type FUZZY-VALUE interes))
+(plot-fuzzy-value t ".+*" nil nil
+(create-fuzzy-value notoriedad poca)
+(create-fuzzy-value notoriedad mucha)
+(fuzzy-intersection
+  (create-fuzzy-value notoriedad poca)
+  (create-fuzzy-value notoriedad mucha)
+  )
 )
 
-(deffacts fuzzy-datos
-  (intereses (tema Tecnologia) (interes alto))
-  (intereses (tema Medicina) (interes medio))
-  (intereses (tema Ciencias) (interes alto))
-  (intereses (tema Economia) (interes escaso))
-)
-
-; 5.	Declarar la notoriedad de cada entidad a la que pertenece el ponente usando
-; la plantilla del aparatado 2-1. Por ejemplo, debéis declarar hechos como que
-; la notoriedad de la entidad Electrónica Arts. es mucha.
-
-(deftemplate notoriedades
-  (slot tema(type SYMBOL)(allowed-symbols Tecnologia Medicina Ciencias Economia))
-  (slot notoriedad (type FUZZY-VALUE notoriedad))
-)
-
-(deffacts fuzzy-datos
-  (notoriedades (tema Tecnologia) (notoriedad mucha))
-  (notoriedades (tema Medicina) (notoriedad mucha))
-  (notoriedades (tema Ciencias) (notoriedad poca))
-  (notoriedades (tema Economia) (notoriedad poca))
-)
-
-
-
-Entrega 3 Objetivo: Definir reglas con antecedente borroso, uso de modificadores
-
-3.0 Definir una regla que incluya en el techfest a las charlas de interés muy alto
-(uso de modificador very) cuyos temas no hayan sido seleccionados previamente sin
-superar el máximo número de charlas del techfest. Nota: consiste en modificar la
-regla del apartado 1.2 incluyendo un nuevo antecedente. Ejecutarla como única regla y observar qué ocurre.
-
-3.1 Definir una regla que incluya en el techfest a las charlas cuya entidad sea
-de notoriedad más o menos mucha (uso de modificador somewhat) cuyos temas no
-hayan sido seleccionados previamente sin superar el máximo número de charlas del
-techfest. Nota: consiste en modificar la regla del apartado 1.2 incluyendo un
-nuevo antecedente. Ejecutarla cómo única regla y observar qué ocurre.
-
-
-3.2 Definir una regla que incluya en el techfest a las charlas cuya entidad sea
-de no poca notoriedad (modificador not), de interés medio o alto (or), cuyos temas
-no hayan sido seleccionados previamente sin superar el máximo número de charlas del
-techfest. Nota: consiste en modificar la regla del apartado 1.2 incluyendo dos nuevos antecedente.
-Ejecutarla cómo única regla y observar qué ocurre.
+(reset)
+(run)
+(facts)
+;3.1 Definir una regla que incluya en el techfest a las charlas cuya entidad sea
+;de notoriedad más o menos mucha (uso de modificador somewhat) cuyos temas no
+;hayan sido seleccionados previamente sin superar el máximo número de charlas del
+;techfest. Nota: consiste en modificar la regla del apartado 1.2 incluyendo un
+;nuevo antecedente. Ejecutarla cómo única regla y observar qué ocurre.
