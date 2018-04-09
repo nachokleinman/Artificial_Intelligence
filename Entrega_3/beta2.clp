@@ -232,6 +232,10 @@
   ;imprimimos por pantalla la charla que ha sido seleccionada y el numero restante de charlas disponibles
   (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", tema: " ?tem_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
+
+
+
+; fucion
 (fuzzy-intersection
   (create-fuzzy-value notoriedad poca)
   (create-fuzzy-value notoriedad mucha)
@@ -250,37 +254,54 @@ poca and mucha
 (reset)
 (run)
 (facts)
-;3.1 Definir una regla que incluya en el techfest a las charlas cuya entidad sea
-;de notoriedad más o menos mucha (uso de modificador somewhat) cuyos temas no
-;hayan sido seleccionados previamente sin superar el máximo número de charlas del
-;techfest. Nota: consiste en modificar la regla del apartado 1.2 incluyendo un
-;nuevo antecedente. Ejecutarla cómo única regla y observar qué ocurre.
 
 
-Linguistic Value: poca (.),  mucha (+),  [ poca ] AND [ mucha ] (*)
+;*****************************************************************
+;****************** ANÁLISIS DE RESULTADOS ***********************
+;*****************************************************************
 
- 1.00.....................                             +
- 0.95                     .                           +
- 0.90                      .
- 0.85                       .                        +
- 0.80                                               +
- 0.75                        .                     +
- 0.70                         .                   +
- 0.65                          .                 +
- 0.60                           .
- 0.55                            .              +
- 0.50                             .            +
- 0.45                              .          +
- 0.40                                        +
- 0.35                               .
- 0.30                                .      +
- 0.25                                 .    +
- 0.20                                  .  +
- 0.15                                   .+
- 0.10                                    *
- 0.05                                   * *
- 0.00***********************************   *************
-     |----|----|----|----|----|----|----|----|----|----|
-    0.00      2.00      4.00      6.00      8.00     10.00
 
-Universe of Discourse:  From   0.00  to   10.00
+; A continuación se muestra la gráfica que muestra los valores mucha y poca para notoriedad:
+
+;Linguistic Value: poca (.),  mucha (+),  [ poca ] AND [ mucha ] (*)
+;
+; 1.00.....................                             +
+; 0.95                     .                           +
+; 0.90                      .
+; 0.85                       .                        +
+; 0.80                                               +
+; 0.75                        .                     +
+; 0.70                         .                   +
+; 0.65                          .                 +
+; 0.60                           .
+; 0.55                            .              +
+; 0.50                             .            +
+; 0.45                              .          +
+; 0.40                                        +
+; 0.35                               .
+; 0.30                                .      +
+; 0.25                                 .    +
+; 0.20                                  .  +
+; 0.15                                   .+
+; 0.10                                    *
+; 0.05                                   * *
+; 0.00***********************************   *************
+;     |----|----|----|----|----|----|----|----|----|----|
+;    0.00      2.00      4.00      6.00      8.00     10.00
+
+;Universe of Discourse:  From   0.00  to   10.00
+
+; Como puede verse, la gráfica de ambos valores corta en un valor cercano a 0'10
+; A continuación se muestra una salida con los resultados al ejecutiar el comando (run) y (facts)
+; con las charlas escogidas:
+
+;f-20    (escogida "Juan" "La economia" Economia 2013) CF 0.08  
+;f-22    (escogida "Juan" "espacio" Ciencias 2015) CF 0.08  
+;f-24    (escogida "Miguel" "iPhone2" Tecnologia 2014) CF 0.08  
+;f-26    (escogida "Miguel" "Mujercitas" Economia 2014) CF 0.08  
+;f-28    (escogida "Miguel" "Mujercitas" Economia 2015) CF 0.08  
+;f-30    (escogida "Rigoberto" "Mujercitas" Medicina 2016) CF 0.08  
+;f-32    (escogida "Pedro" "IA mola" Economia 2016) CF 0.08  
+;f-33    (charlas_disponibles 52) CF 0.08
+
+; como puede verse el CF es consistente con el puto de corte de la gráfica del resultado

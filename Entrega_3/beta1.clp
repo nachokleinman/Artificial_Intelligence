@@ -265,58 +265,79 @@ medio and escaso
 (reset)
 (run)
 (facts)
-Linguistic Value: alto (-),  medio (+),  [ alto ] AND [ medio ] (.)
 
- 1.00                         +              -----------
- 0.95                        + +            -
- 0.90                       +   +
- 0.85                                      -
- 0.80                      +     +
- 0.75
- 0.70                                     -
- 0.65                     +       +
- 0.60
- 0.55
- 0.50                    +         +
- 0.45                                    -
- 0.40
- 0.35                   +           +
- 0.30
- 0.25                                   -
- 0.20                  +             +
- 0.15
- 0.10                 +               +-
- 0.05                +                 .
- 0.00.................................. ................
-     |----|----|----|----|----|----|----|----|----|----|
-    0.00      2.00      4.00      6.00      8.00     10.00
 
-Universe of Discourse:  From   0.00  to   10.00
 
-Linguistic Value: medio ($),  escaso (&),  [ medio ] AND [ escaso ] (*)
+;*****************************************************************
+;****************** ANÁLISIS DE RESULTADOS ***********************
+;*****************************************************************
 
- 1.00&&&&&&&&&&&&&&&&         $
- 0.95                        $ $
- 0.90                &      $   $
- 0.85
- 0.80                      $     $
- 0.75
- 0.70
- 0.65                 &   $       $
- 0.60
- 0.55
- 0.50                    $         $
- 0.45
- 0.40
- 0.35                   $           $
- 0.30                  &
- 0.25                  *
- 0.20                  *             $
- 0.15
- 0.10                 * *             $
- 0.05                *                 $
- 0.00****************    *******************************
-     |----|----|----|----|----|----|----|----|----|----|
-    0.00      2.00      4.00      6.00      8.00     10.00
 
-Universe of Discourse:  From   0.00  to   10.00
+; A continuación se muestra la gráfica que muestra los valores de interés medio y escaso
+;Linguistic Value: medio ($),  escaso (&),  [ medio ] AND [ escaso ] (*)
+
+; 1.00&&&&&&&&&&&&&&&&         $
+; 0.95                        $ $
+; 0.90                &      $   $
+; 0.85
+; 0.80                      $     $
+; 0.75
+; 0.70
+; 0.65                 &   $       $
+; 0.60
+; 0.55
+; 0.50                    $         $
+; 0.45
+; 0.40
+; 0.35                   $           $
+; 0.30                  &
+; 0.25                  *
+; 0.20                  *             $
+; 0.15
+; 0.10                 * *             $
+; 0.05                *                 $
+; 0.00****************    *******************************
+;     |----|----|----|----|----|----|----|----|----|----|
+;    0.00      2.00      4.00      6.00      8.00     10.00
+;
+; Universe of Discourse:  From   0.00  to   10.00
+
+; A continuación se muestra la gráfica que muestra los valores de interés medio y alto 
+;Linguistic Value: alto (-),  medio (+),  [ alto ] AND [ medio ] (.)
+
+; 1.00                         +              -----------
+; 0.95                        + +            -
+; 0.90                       +   +
+; 0.85                                      -
+; 0.80                      +     +
+; 0.75
+; 0.70                                     -
+; 0.65                     +       +
+; 0.60
+; 0.55
+; 0.50                    +         +
+; 0.45                                    -
+; 0.40
+; 0.35                   +           +
+; 0.30
+; 0.25                                   -
+; 0.20                  +             +
+; 0.15
+; 0.10                 +               +-
+; 0.05                +                 .
+; 0.00.................................. ................
+;     |----|----|----|----|----|----|----|----|----|----|
+;    0.00      2.00      4.00      6.00      8.00     10.00
+
+;Universe of Discourse:  From   0.00  to   10.00
+
+
+; En las gráficas puede verse los puntos de corte de los diferentes tipos de interés
+; Esto tiene consistencia con las salidas que dan como resultado:
+
+
+; f-20    (escogida "Juan" "espacio" Ciencias 2015) CF 0.88  
+; f-22    (escogida "Miguel" "iPhone2" Tecnologia 2014) CF 0.88  
+; f-23    (charlas_disponibles 57) CF 0.01  
+; f-24    (escogida "Rigoberto" "Mujercitas" Medicina 2016) CF 0.01  For a total of 22 facts.
+
