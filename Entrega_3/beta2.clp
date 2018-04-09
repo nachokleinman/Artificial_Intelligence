@@ -232,7 +232,6 @@
   ;imprimimos por pantalla la charla que ha sido seleccionada y el numero restante de charlas disponibles
   (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", tema: " ?tem_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
-
 (fuzzy-intersection
   (create-fuzzy-value notoriedad poca)
   (create-fuzzy-value notoriedad mucha)
