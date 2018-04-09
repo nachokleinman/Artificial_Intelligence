@@ -116,9 +116,9 @@
 
 (deftemplate interes 0.0 10.0
   (
-    (escaso (z 3.0 5.0))
+    (escaso (z 3.0 4.0))
     (medio (PI 2.0 5.0))
-    (alto (s 5.0 7.0))
+    (alto (s 6.5 8.0))
   ))
 
 ; 2. Definir una plantilla para declarar hechos borrosos sobre la (poca y mucha)
@@ -174,13 +174,13 @@
 
 
 
+
 ;Entrega 3 Objetivo: Definir reglas con antecedente borroso, uso de modificadores
 
 ;3.0 Definir una regla que incluya en el techfest a las charlas de interés muy alto
 ;(uso de modificador very) cuyos temas no hayan sido seleccionados previamente sin
 ;superar el máximo número de charlas del techfest. Nota: consiste en modificar la
 ;regla del apartado 1.2 incluyendo un nuevo antecedente. Ejecutarla como única regla y observar qué ocurre.
-
 
 ;Regla con la logica
 (defrule controlador_charlas
@@ -232,3 +232,36 @@
   ;imprimimos por pantalla la charla que ha sido seleccionada y el numero restante de charlas disponibles
   (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", tema: " ?tem_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
+(fuzzy-intersection
+  (create-fuzzy-value interes alto)
+  (create-fuzzy-value interes medio)
+)
+alta and medio
+
+(plot-fuzzy-value t "-+." nil nil
+(create-fuzzy-value interes alto)
+(create-fuzzy-value interes medio)
+(fuzzy-intersection
+  (create-fuzzy-value interes alto)
+  (create-fuzzy-value interes medio)
+  )
+)
+
+(fuzzy-intersection
+  (create-fuzzy-value interes medio)
+  (create-fuzzy-value interes escaso)
+)
+medio and escaso
+
+(plot-fuzzy-value t "$&*" nil nil
+(create-fuzzy-value interes medio)
+(create-fuzzy-value interes escaso)
+(fuzzy-intersection
+  (create-fuzzy-value interes medio)
+  (create-fuzzy-value interes escaso)
+  )
+)
+
+(reset)
+(run)
+(facts)
