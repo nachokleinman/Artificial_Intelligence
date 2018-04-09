@@ -222,7 +222,7 @@
     )
   )
   ;escoge temas de interés alto
-  (notoriedades (tema ?tem_candidata) (notoriedad ?h & somewhat mucha))
+  (notoriedades (tema ?tem_candidata) (notoriedad somewhat mucha))
 =>
   ;reducimos charlas disponibles
   (retract ?hecho)
@@ -255,3 +255,32 @@ poca and mucha
 ;hayan sido seleccionados previamente sin superar el máximo número de charlas del
 ;techfest. Nota: consiste en modificar la regla del apartado 1.2 incluyendo un
 ;nuevo antecedente. Ejecutarla cómo única regla y observar qué ocurre.
+
+
+Linguistic Value: poca (.),  mucha (+),  [ poca ] AND [ mucha ] (*)
+
+ 1.00.....................                             +
+ 0.95                     .                           +
+ 0.90                      .
+ 0.85                       .                        +
+ 0.80                                               +
+ 0.75                        .                     +
+ 0.70                         .                   +
+ 0.65                          .                 +
+ 0.60                           .
+ 0.55                            .              +
+ 0.50                             .            +
+ 0.45                              .          +
+ 0.40                                        +
+ 0.35                               .
+ 0.30                                .      +
+ 0.25                                 .    +
+ 0.20                                  .  +
+ 0.15                                   .+
+ 0.10                                    *
+ 0.05                                   * *
+ 0.00***********************************   *************
+     |----|----|----|----|----|----|----|----|----|----|
+    0.00      2.00      4.00      6.00      8.00     10.00
+
+Universe of Discourse:  From   0.00  to   10.00

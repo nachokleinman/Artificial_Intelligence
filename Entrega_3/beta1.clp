@@ -222,7 +222,7 @@
     )
   )
   ;escoge temas de interés alto
-  (intereses (tema ?tem_candidata) (interes ?h & very alto))
+  (intereses (tema ?tem_candidata) (interes very alto))
 =>
   ;reducimos charlas disponibles
   (retract ?hecho)
@@ -265,3 +265,58 @@ medio and escaso
 (reset)
 (run)
 (facts)
+Linguistic Value: alto (-),  medio (+),  [ alto ] AND [ medio ] (.)
+
+ 1.00                         +              -----------
+ 0.95                        + +            -
+ 0.90                       +   +
+ 0.85                                      -
+ 0.80                      +     +
+ 0.75
+ 0.70                                     -
+ 0.65                     +       +
+ 0.60
+ 0.55
+ 0.50                    +         +
+ 0.45                                    -
+ 0.40
+ 0.35                   +           +
+ 0.30
+ 0.25                                   -
+ 0.20                  +             +
+ 0.15
+ 0.10                 +               +-
+ 0.05                +                 .
+ 0.00.................................. ................
+     |----|----|----|----|----|----|----|----|----|----|
+    0.00      2.00      4.00      6.00      8.00     10.00
+
+Universe of Discourse:  From   0.00  to   10.00
+
+Linguistic Value: medio ($),  escaso (&),  [ medio ] AND [ escaso ] (*)
+
+ 1.00&&&&&&&&&&&&&&&&         $
+ 0.95                        $ $
+ 0.90                &      $   $
+ 0.85
+ 0.80                      $     $
+ 0.75
+ 0.70
+ 0.65                 &   $       $
+ 0.60
+ 0.55
+ 0.50                    $         $
+ 0.45
+ 0.40
+ 0.35                   $           $
+ 0.30                  &
+ 0.25                  *
+ 0.20                  *             $
+ 0.15
+ 0.10                 * *             $
+ 0.05                *                 $
+ 0.00****************    *******************************
+     |----|----|----|----|----|----|----|----|----|----|
+    0.00      2.00      4.00      6.00      8.00     10.00
+
+Universe of Discourse:  From   0.00  to   10.00
