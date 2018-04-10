@@ -176,10 +176,7 @@
 
 ;Entrega 3 Objetivo: Definir reglas con antecedente borroso, uso de modificadores
 
-;3.0 Definir una regla que incluya en el techfest a las charlas de interés muy alto
-;(uso de modificador very) cuyos temas no hayan sido seleccionados previamente sin
-;superar el máximo número de charlas del techfest. Nota: consiste en modificar la
-;regla del apartado 1.2 incluyendo un nuevo antecedente. Ejecutarla como única regla y observar qué ocurre.
+
 
 
 ;Regla con la logica
@@ -235,7 +232,7 @@
 
 
 
-; fucion
+; funcion
 (fuzzy-intersection
   (create-fuzzy-value notoriedad poca)
   (create-fuzzy-value notoriedad mucha)
@@ -254,6 +251,12 @@ poca and mucha
 (reset)
 (run)
 (facts)
+
+;3.1 Definir una regla que incluya en el techfest a las charlas cuya entidad sea de
+;notoriedad más o menos mucha (uso de modificador somewhat) cuyos temas no hayan
+;sido seleccionados previamente sin superar el máximo número de charlas del techfest.
+;Nota: consiste en modificar la regla del apartado 1.2 incluyendo un nuevo antecedente.
+;Ejecutarla cómo única regla y observar qué ocurre.
 
 
 ;*****************************************************************
@@ -295,13 +298,13 @@ poca and mucha
 ; A continuación se muestra una salida con los resultados al ejecutiar el comando (run) y (facts)
 ; con las charlas escogidas:
 
-;f-20    (escogida "Juan" "La economia" Economia 2013) CF 0.08  
-;f-22    (escogida "Juan" "espacio" Ciencias 2015) CF 0.08  
-;f-24    (escogida "Miguel" "iPhone2" Tecnologia 2014) CF 0.08  
-;f-26    (escogida "Miguel" "Mujercitas" Economia 2014) CF 0.08  
-;f-28    (escogida "Miguel" "Mujercitas" Economia 2015) CF 0.08  
-;f-30    (escogida "Rigoberto" "Mujercitas" Medicina 2016) CF 0.08  
-;f-32    (escogida "Pedro" "IA mola" Economia 2016) CF 0.08  
+;f-20    (escogida "Juan" "La economia" Economia 2013) CF 0.08
+;f-22    (escogida "Juan" "espacio" Ciencias 2015) CF 0.08
+;f-24    (escogida "Miguel" "iPhone2" Tecnologia 2014) CF 0.08
+;f-26    (escogida "Miguel" "Mujercitas" Economia 2014) CF 0.08
+;f-28    (escogida "Miguel" "Mujercitas" Economia 2015) CF 0.08
+;f-30    (escogida "Rigoberto" "Mujercitas" Medicina 2016) CF 0.08
+;f-32    (escogida "Pedro" "IA mola" Economia 2016) CF 0.08
 ;f-33    (charlas_disponibles 52) CF 0.08
 
 ; como puede verse el CF es consistente con el puto de corte de la gráfica del resultado

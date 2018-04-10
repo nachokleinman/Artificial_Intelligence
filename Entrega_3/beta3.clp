@@ -118,7 +118,7 @@
   (
     (escaso (z 3.0 5.0))
     (medio (PI 2.0 5.0))
-    (alto (s 5.0 7.0))
+    (alto (s 4.0 7.0))
   ))
 
 ; 2. Definir una plantilla para declarar hechos borrosos sobre la (poca y mucha)
@@ -126,7 +126,7 @@
 
 (deftemplate notoriedad 0.0 10.0 importancia
   (
-    (poca (3.0 1.0)(7.2 0.0))
+    (poca (1.0 1.0)(4.2 0.0))
     (mucha (5.5 0.0)(9.0 1.0))
   ))
 
@@ -220,7 +220,8 @@
     )
   )
   ;escoge temas de notoriedad no poca
-  (notoriedades (tema ?tem_seleccionada) (notoriedad not poca))
+  (notoriedades (tema ?tem_candidata) (notoriedad not poca))
+  ;escoge temas de intereses medio o alto
   (intereses (tema ?tem_candidata)(interes medio or alto))
 
 =>
@@ -232,6 +233,62 @@
   ;imprimimos por pantalla la charla que ha sido seleccionada y el numero restante de charlas disponibles
   (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", tema: " ?tem_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
+(defrule prueba1
+  (notoriedades (tema ?tem_seleccionada) (notoriedad not poca))
+=>
+(assert (noto ?tem_seleccionada))
+  )
+
+(defrule prueba2
+  (intereses (tema ?tem_candidata)(interes medio or alto))
+=>
+(assert (interes1 ?tem_candidata))
+  )
+
+  (fuzzy-intersection
+    (create-fuzzy-value interes alto)
+    (create-fuzzy-value interes medio)
+  )
+  alta and medio
+
+  (plot-fuzzy-value t "-+." nil nil
+  (create-fuzzy-value interes alto)
+  (create-fuzzy-value interes medio)
+  (fuzzy-intersection
+    (create-fuzzy-value interes alto)
+    (create-fuzzy-value interes medio)
+    )
+  )
+
+  (fuzzy-intersection
+    (create-fuzzy-value interes medio)
+    (create-fuzzy-value interes escaso)
+  )
+  medio and escaso
+
+  (plot-fuzzy-value t "$&*" nil nil
+  (create-fuzzy-value interes medio)
+  (create-fuzzy-value interes escaso)
+  (fuzzy-intersection
+    (create-fuzzy-value interes medio)
+    (create-fuzzy-value interes escaso)
+    )
+  )
+
+  (fuzzy-intersection
+    (create-fuzzy-value notoriedad not poca)
+    (create-fuzzy-value notoriedad mucha)
+  )
+  not poca and mucha
+
+  (plot-fuzzy-value t ".+*" nil nil
+  (create-fuzzy-value notoriedad not poca)
+  (create-fuzzy-value notoriedad mucha)
+  (fuzzy-intersection
+    (create-fuzzy-value notoriedad not poca)
+    (create-fuzzy-value notoriedad mucha)
+    )
+  )
 
 
 
@@ -245,3 +302,110 @@
 ;no hayan sido seleccionados previamente sin superar el máximo número de charlas del
 ;techfest. Nota: consiste en modificar la regla del apartado 1.2 incluyendo dos nuevos antecedente.
 ;Ejecutarla cómo única regla y observar qué ocurre.
+
+;Fuzzy Value: interes
+;Linguistic Value: alto (-),  medio (+),  [ alto ] AND [ medio ] (.)
+
+; 1.00                         +        -----------------
+; 0.95                        + +      -
+; 0.90                       +   +    -
+; 0.85                               -
+; 0.80                      +     +
+; 0.75                              -
+; 0.70                             -
+; 0.65                     +       .
+; 0.60
+; 0.55                            .
+; 0.50                    +         .
+; 0.45                           .
+; 0.40
+; 0.35                   +      .    .
+; 0.30
+; 0.25                         .
+; 0.20                  +             .
+; 0.15                        .
+; 0.10                 +     .         .
+; 0.05                +     .           .
+; 0.00......................             ................
+;     |----|----|----|----|----|----|----|----|----|----|
+;    0.00      2.00      4.00      6.00      8.00     10.00
+
+;Universe of Discourse:  From   0.00  to   10.00
+
+;Fuzzy Value: interes
+;Linguistic Value: medio ($),  escaso (&),  [ medio ] AND [ escaso ] (*)
+
+; 1.00&&&&&&&&&&&&&&&&         $
+; 0.95                &       $ $
+; 0.90                 &     $   $
+; 0.85
+; 0.80                  &   $     $
+; 0.75
+; 0.70
+; 0.65                   & $       $
+; 0.60
+; 0.55
+; 0.50                    *         $
+; 0.45
+; 0.40
+; 0.35                   *           $
+; 0.30                     *
+; 0.25
+; 0.20                  *   *         $
+; 0.15
+; 0.10                 *     *         $
+; 0.05                *                 $
+; 0.00****************        ***************************
+;     |----|----|----|----|----|----|----|----|----|----|
+;    0.00      2.00      4.00      6.00      8.00     10.00
+
+;Universe of Discourse:  From   0.00  to   10.00
+
+;Fuzzy Value: notoriedad
+;Linguistic Value: not poca (.),  mucha (+),  [ not poca ] AND [ mucha ] (*)
+
+; 1.00                     ........................******
+; 0.95                    .                       *
+; 0.90                   .                       *
+; 0.85                                          *
+; 0.80                  .
+; 0.75                 .                       *
+; 0.70                .                       *
+; 0.65               .                       *
+; 0.60                                      *
+; 0.55              .                      *
+; 0.50             .                      *
+; 0.45            .                      *
+; 0.40
+; 0.35           .                      *
+; 0.30          .                      *
+; 0.25         .                      *
+; 0.20        .                      *
+; 0.15                              *
+; 0.10       .                     *
+; 0.05      .                     *
+; 0.00****************************
+;     |----|----|----|----|----|----|----|----|----|----|
+;    0.00      2.00      4.00      6.00      8.00     10.00
+;
+;Universe of Discourse:  From   0.00  to   10.00
+
+;f-35    (noto Economia) CF 0.25
+;f-36    (noto Ciencias) CF 0.25
+;f-37    (noto Medicina) CF 1.00
+;f-38    (noto Tecnologia) CF 1.00
+;f-39    (interes1 Economia) CF 0.25
+;f-40    (interes1 Ciencias) CF 1.00
+;f-41    (interes1 Medicina) CF 1.00
+;f-42    (interes1 Tecnologia) CF 1.00
+
+
+;(escogida "Juan" "La economia" Economia 2013) CF 0.25
+;f-22    (escogida "Juan" "espacio" Ciencias 2015) CF 0.25
+;f-24    (escogida "Miguel" "iPhone2" Tecnologia 2014) CF 0.25
+;f-26    (escogida "Miguel" "Mujercitas" Economia 2014) CF 0.25
+;f-28    (escogida "Miguel" "Mujercitas" Economia 2015) CF 0.25
+;f-30    (escogida "Rigoberto" "Mujercitas" Medicina 2016) CF 0.25
+;f-32    (escogida "Pedro" "IA mola" Economia 2016) CF 0.25
+;f-33    (charlas_disponibles 52) CF 0.25
+;f-34    (escogida "Pedro" "La economia" Economia 2015) CF 0.25

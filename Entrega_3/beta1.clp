@@ -302,7 +302,7 @@ medio and escaso
 ;
 ; Universe of Discourse:  From   0.00  to   10.00
 
-; A continuación se muestra la gráfica que muestra los valores de interés medio y alto 
+; A continuación se muestra la gráfica que muestra los valores de interés medio y alto
 ;Linguistic Value: alto (-),  medio (+),  [ alto ] AND [ medio ] (.)
 
 ; 1.00                         +              -----------
@@ -336,8 +336,7 @@ medio and escaso
 ; Esto tiene consistencia con las salidas que dan como resultado:
 
 
-; f-20    (escogida "Juan" "espacio" Ciencias 2015) CF 0.88  
-; f-22    (escogida "Miguel" "iPhone2" Tecnologia 2014) CF 0.88  
-; f-23    (charlas_disponibles 57) CF 0.01  
+; f-20    (escogida "Juan" "espacio" Ciencias 2015) CF 0.88
+; f-22    (escogida "Miguel" "iPhone2" Tecnologia 2014) CF 0.88
+; f-23    (charlas_disponibles 57) CF 0.01
 ; f-24    (escogida "Rigoberto" "Mujercitas" Medicina 2016) CF 0.01  For a total of 22 facts.
-
