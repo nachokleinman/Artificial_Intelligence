@@ -126,8 +126,8 @@
 
 (deftemplate notoriedad 0.0 10.0 importancia
   (
-    (poca (4.0 1.0)(7.5 0.0))
-    (mucha (6.8 0.0)(10.0 1.0))
+    (poca (3.0 1.0)(7.2 0.0))
+    (mucha (5.5 0.0)(9.0 1.0))
   ))
 
 ; 3. Definir una plantilla (template) para declarar hechos borrosos sobre la edad
@@ -135,10 +135,10 @@
 
 (deftemplate edad-fuzzy 0.0 100.0
   (
-    (joven (15 1)(26 0))
-    (madurito (23 0)(25 1)(30 1)(35 0))
-    (adulto (30 0)(35 1)(55 1)(60 0))
-    (prejubilado (50 0)(55 1))
+    (joven (15.0 1.0 )(26.0  0.0 ))
+    (madurito (23.0 0.0 )(25.0  1.0 )(30.0  1.0 )(35.0  0.0 ))
+    (adulto (30.0  0.0 )(35 1)(55.0  1.0 )(60.0  0.0 ))
+    (prejubilado (50.0  0.0 )(55.0  1.0 ))
   ))
 
 ; 4. Declarar el interés de cada tema propuesto como hechos borrosos usando la plantilla
@@ -184,11 +184,6 @@
 
 ;Regla con la logica
 (defrule controlador_charlas
-
-  ;escoge temas de notoriedad no poca
-  (notoriedades (notoriedad not poca))
-
-
   ;Solo introduce charlas mientras haya huecos disponibles
   ?hecho <- (charlas_disponibles ?x)
   (test(> ?x 0))
@@ -200,8 +195,6 @@
     (edicion_techfest ?edi_candidata)
     (tema_charla ?tem_candidata)
   )
-
-
 
 (forall
     ;recogemos los datos de las charlas que ya están seleccionadas
@@ -226,6 +219,9 @@
       )
     )
   )
+  ;escoge temas de notoriedad no poca
+  (notoriedades (tema ?tem_seleccionada) (notoriedad not poca))
+  (intereses (tema ?tem_candidata)(interes medio or alto))
 
 =>
   ;reducimos charlas disponibles
@@ -237,9 +233,12 @@
   (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", tema: " ?tem_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
 
+
+
 (reset)
 (run)
 (facts)
+
 
 ;3.2 Definir una regla que incluya en el techfest a las charlas cuya entidad sea
 ;de no poca notoriedad (modificador not), de interés medio o alto (or), cuyos temas
