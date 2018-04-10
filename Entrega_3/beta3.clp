@@ -23,20 +23,24 @@
 ;La charla 3 y 4 son dadas por la misma persona, con el mismo nombre y tema, pero al ser de ediciones distintas, las deja pasar.
 ;La charla 7 y 8 son del mismo hombre en la misma edicion pero con tema y titulo distintos, por tanto, es correcto.
 
-
+;
 (deffacts charla1
   (charlas_plantilla
     (nombre "Juan")
+    (edad 42)
     (titulo_charla "La economia")
     (tema_charla Economia)
+    (entidad "Uc3m")
     (edicion_techfest 2013)
   )
 )
 (deffacts charla2
   (charlas_plantilla
     (nombre "Pedro")
+    (edad 67)
     (titulo_charla "La economia")
     (tema_charla Economia)
+    (entidad "BBVA")
     (edicion_techfest 2015)
   )
 )
@@ -44,15 +48,20 @@
 (deffacts charla3
   (charlas_plantilla
     (nombre "Pedro")
+    (edad 50)
     (titulo_charla "IA mola")
     (tema_charla Economia)
+    (entidad "Uc3m")
     (edicion_techfest 2016)
   )
-)(deffacts charla4
+)
+(deffacts charla4
   (charlas_plantilla
     (nombre "Pedro")
+    (edad 40)
     (titulo_charla "IA mola")
     (tema_charla Economia)
+    (entidad "Salesforce")
     (edicion_techfest 2015)
   )
 )
@@ -60,8 +69,10 @@
 (deffacts charla5
   (charlas_plantilla
     (nombre "Rigoberto")
+    (edad 26)
     (titulo_charla "Mujercitas")
     (tema_charla Medicina)
+    (entidad "IE")
     (edicion_techfest 2016)
   )
 )
@@ -69,8 +80,10 @@
 (deffacts charla6
   (charlas_plantilla
     (nombre "Miguel")
+    (edad 34)
     (titulo_charla "Mujercitas")
     (tema_charla Economia)
+    (entidad "Politecnica")
     (edicion_techfest 2015)
   )
 )
@@ -78,35 +91,44 @@
 (deffacts charla7
   (charlas_plantilla
     (nombre "Miguel")
+    (edad 37)
     (titulo_charla "Mujercitas")
     (tema_charla Economia)
+    (entidad "Publica")
     (edicion_techfest 2014)
   )
 )
 (deffacts charla8
   (charlas_plantilla
     (nombre "Miguel")
+    (edad 50)
     (titulo_charla "iPhone")
     (tema_charla Tecnologia)
+    (entidad "BusinesSchool")
     (edicion_techfest 2014)
   )
 )
 (deffacts charla9
   (charlas_plantilla
     (nombre "Miguel")
+    (edad 48)
     (titulo_charla "iPhone2")
     (tema_charla Tecnologia)
+    (entidad "IEF")
     (edicion_techfest 2014)
   )
 )
 (deffacts charla10
   (charlas_plantilla
     (nombre "Juan")
+    (edad 26)
     (titulo_charla "espacio")
     (tema_charla Ciencias)
+    (entidad "URJC")
     (edicion_techfest 2015)
   )
 )
+
 
 
 
@@ -118,7 +140,7 @@
   (
     (escaso (z 3.0 5.0))
     (medio (PI 2.0 5.0))
-    (alto (s 4.0 7.0))
+    (alto (s 5.0 7.0))
   ))
 
 ; 2. Definir una plantilla para declarar hechos borrosos sobre la (poca y mucha)
@@ -126,8 +148,8 @@
 
 (deftemplate notoriedad 0.0 10.0 importancia
   (
-    (poca (1.0 1.0)(4.2 0.0))
-    (mucha (5.5 0.0)(9.0 1.0))
+    (poca (4.0 1.0)(7.5 0.0))
+    (mucha (6.8 0.0)(10.0 1.0))
   ))
 
 ; 3. Definir una plantilla (template) para declarar hechos borrosos sobre la edad
@@ -135,10 +157,10 @@
 
 (deftemplate edad-fuzzy 0.0 100.0
   (
-    (joven (15.0 1.0 )(26.0  0.0 ))
-    (madurito (23.0 0.0 )(25.0  1.0 )(30.0  1.0 )(35.0  0.0 ))
-    (adulto (30.0  0.0 )(35 1)(55.0  1.0 )(60.0  0.0 ))
-    (prejubilado (50.0  0.0 )(55.0  1.0 ))
+    (joven (15 1)(26 0))
+    (madurito (23 0)(25 1)(30 1)(35 0))
+    (adulto (30 0)(35 1)(55 1)(60 0))
+    (prejubilado (50 0)(55 1))
   ))
 
 ; 4. Declarar el interés de cada tema propuesto como hechos borrosos usando la plantilla
@@ -150,14 +172,12 @@
   (slot interes (type FUZZY-VALUE interes))
 )
 
-
-
 ; 5.	Declarar la notoriedad de cada entidad a la que pertenece el ponente usando
 ; la plantilla del aparatado 2-1. Por ejemplo, debéis declarar hechos como que
 ; la notoriedad de la entidad Electrónica Arts. es mucha.
 
 (deftemplate notoriedades
-  (slot tema(type SYMBOL)(allowed-symbols Tecnologia Medicina Ciencias Economia))
+  (slot entidad(type STRING))
   (slot notoriedad (type FUZZY-VALUE notoriedad))
 )
 
@@ -166,20 +186,22 @@
   (intereses (tema Medicina) (interes medio))
   (intereses (tema Ciencias) (interes alto))
   (intereses (tema Economia) (interes escaso))
-  (notoriedades (tema Tecnologia) (notoriedad mucha))
-  (notoriedades (tema Medicina) (notoriedad mucha))
-  (notoriedades (tema Ciencias) (notoriedad poca))
-  (notoriedades (tema Economia) (notoriedad poca))
+  (notoriedades (entidad "Uc3m") (notoriedad mucha))
+  (notoriedades (entidad "BBVA") (notoriedad mucha))
+  (notoriedades (entidad "Salesforce") (notoriedad poca))
+  (notoriedades (entidad "IE") (notoriedad poca))
+  (notoriedades (entidad "Politecnica") (notoriedad poca))
+  (notoriedades (entidad "Publica") (notoriedad poca))
+  (notoriedades (entidad "BusinesSchool") (notoriedad poca))
+  (notoriedades (entidad "IEF") (notoriedad poca))
+  (notoriedades (entidad "URJC") (notoriedad poca))
 )
 
 
 
 ;Entrega 3 Objetivo: Definir reglas con antecedente borroso, uso de modificadores
 
-;3.0 Definir una regla que incluya en el techfest a las charlas de interés muy alto
-;(uso de modificador very) cuyos temas no hayan sido seleccionados previamente sin
-;superar el máximo número de charlas del techfest. Nota: consiste en modificar la
-;regla del apartado 1.2 incluyendo un nuevo antecedente. Ejecutarla como única regla y observar qué ocurre.
+
 
 
 ;Regla con la logica
@@ -191,14 +213,18 @@
   ;usamos una plantilla para manejar las reglas
   (charlas_plantilla
     (nombre ?nom_candidata)
+    (edad ?edad_candidata)
     (titulo_charla ?tit_candidata)
     (edicion_techfest ?edi_candidata)
+    (entidad ?entidad_candidata)
     (tema_charla ?tem_candidata)
   )
 
+
+
 (forall
     ;recogemos los datos de las charlas que ya están seleccionadas
-    (escogida ?nom_seleccionada ?tit_seleccionada ?tem_seleccionada ?edi_seleccionada)
+    (escogida ?nom_seleccionada ?edad_seleccionada ?tit_seleccionada ?tem_seleccionada ?entidad_seleccionada ?edi_seleccionada)
     (test
       (or
         ;si las ediciones son diferentes no hace falta controlar nada (puede haber misma charla en diferentes ediciones)
@@ -220,30 +246,20 @@
     )
   )
   ;escoge temas de notoriedad no poca
-  (notoriedades (tema ?tem_candidata) (notoriedad not poca))
-  ;escoge temas de intereses medio o alto
-  (intereses (tema ?tem_candidata)(interes medio or alto))
-
+  (notoriedades (entidad ?entidad_candidata) (notoriedad not poca))
+  ;escoge temas de interés alto o medio
+  (intereses(tema ?tem_candidata)(interes medio or alto))
 =>
   ;reducimos charlas disponibles
   (retract ?hecho)
   (assert (charlas_disponibles (- ?x 1)))
   ;creamos un nuevo hecho con una charla ya seleccionada
-  (assert (escogida ?nom_candidata ?tit_candidata ?tem_candidata ?edi_candidata))
+  (assert (escogida ?nom_candidata ?edad_candidata ?tit_candidata ?tem_candidata ?entidad_candidata ?edi_candidata))
   ;imprimimos por pantalla la charla que ha sido seleccionada y el numero restante de charlas disponibles
-  (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", tema: " ?tem_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
+  (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", de edad" ?edad_candidata ", tema: " ?tem_candidata ", entidad: " ?entidad_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
-(defrule prueba1
-  (notoriedades (tema ?tem_seleccionada) (notoriedad not poca))
-=>
-(assert (noto ?tem_seleccionada))
-  )
 
-(defrule prueba2
-  (intereses (tema ?tem_candidata)(interes medio or alto))
-=>
-(assert (interes1 ?tem_candidata))
-  )
+; funcion
 
   (fuzzy-intersection
     (create-fuzzy-value interes alto)

@@ -30,7 +30,7 @@
     (edad 42)
     (titulo_charla "La economia")
     (tema_charla Economia)
-    (entidad Uc3m)
+    (entidad "Uc3m")
     (edicion_techfest 2013)
   )
 )
@@ -40,7 +40,7 @@
     (edad 67)
     (titulo_charla "La economia")
     (tema_charla Economia)
-    (entidad BBVA)
+    (entidad "BBVA")
     (edicion_techfest 2015)
   )
 )
@@ -51,16 +51,17 @@
     (edad 50)
     (titulo_charla "IA mola")
     (tema_charla Economia)
-    (entidad Uc3m)
+    (entidad "Uc3m")
     (edicion_techfest 2016)
   )
-)(deffacts charla4
+)
+(deffacts charla4
   (charlas_plantilla
     (nombre "Pedro")
     (edad 40)
     (titulo_charla "IA mola")
     (tema_charla Economia)
-    (entidad Salesforce)
+    (entidad "Salesforce")
     (edicion_techfest 2015)
   )
 )
@@ -71,7 +72,7 @@
     (edad 26)
     (titulo_charla "Mujercitas")
     (tema_charla Medicina)
-    (entidad IE)
+    (entidad "IE")
     (edicion_techfest 2016)
   )
 )
@@ -82,7 +83,7 @@
     (edad 34)
     (titulo_charla "Mujercitas")
     (tema_charla Economia)
-    (entidad Politecnica)
+    (entidad "Politecnica")
     (edicion_techfest 2015)
   )
 )
@@ -93,7 +94,7 @@
     (edad 37)
     (titulo_charla "Mujercitas")
     (tema_charla Economia)
-    (entidad publica)
+    (entidad "Publica")
     (edicion_techfest 2014)
   )
 )
@@ -103,7 +104,7 @@
     (edad 50)
     (titulo_charla "iPhone")
     (tema_charla Tecnologia)
-    (entidad BusinesSchool)
+    (entidad "BusinesSchool")
     (edicion_techfest 2014)
   )
 )
@@ -113,7 +114,7 @@
     (edad 48)
     (titulo_charla "iPhone2")
     (tema_charla Tecnologia)
-    (entidad IEF)
+    (entidad "IEF")
     (edicion_techfest 2014)
   )
 )
@@ -123,10 +124,11 @@
     (edad 26)
     (titulo_charla "espacio")
     (tema_charla Ciencias)
-    (entidad URJC)
+    (entidad "URJC")
     (edicion_techfest 2015)
   )
 )
+
 
 
 
@@ -170,14 +172,12 @@
   (slot interes (type FUZZY-VALUE interes))
 )
 
-
-
 ; 5.	Declarar la notoriedad de cada entidad a la que pertenece el ponente usando
 ; la plantilla del aparatado 2-1. Por ejemplo, debéis declarar hechos como que
 ; la notoriedad de la entidad Electrónica Arts. es mucha.
 
 (deftemplate notoriedades
-  (slot tema(type SYMBOL)(allowed-symbols Tecnologia Medicina Ciencias Economia))
+  (slot entidad(type STRING))
   (slot notoriedad (type FUZZY-VALUE notoriedad))
 )
 
@@ -186,10 +186,15 @@
   (intereses (tema Medicina) (interes medio))
   (intereses (tema Ciencias) (interes alto))
   (intereses (tema Economia) (interes escaso))
-  (notoriedades (tema Tecnologia) (notoriedad mucha))
-  (notoriedades (tema Medicina) (notoriedad mucha))
-  (notoriedades (tema Ciencias) (notoriedad poca))
-  (notoriedades (tema Economia) (notoriedad poca))
+  (notoriedades (entidad "Uc3m") (notoriedad mucha))
+  (notoriedades (entidad "BBVA") (notoriedad mucha))
+  (notoriedades (entidad "Salesforce") (notoriedad poca))
+  (notoriedades (entidad "IE") (notoriedad poca))
+  (notoriedades (entidad "Politecnica") (notoriedad poca))
+  (notoriedades (entidad "Publica") (notoriedad poca))
+  (notoriedades (entidad "BusinesSchool") (notoriedad poca))
+  (notoriedades (entidad "IEF") (notoriedad poca))
+  (notoriedades (entidad "URJC") (notoriedad poca))
 )
 
 
@@ -241,15 +246,15 @@
     )
   )
   ;escoge temas de interés alto
-  (notoriedades (tema ?tem_candidata) (notoriedad somewhat mucha))
+  (notoriedades (entidad ?entidad_candidata) (notoriedad somewhat mucha))
 =>
   ;reducimos charlas disponibles
   (retract ?hecho)
   (assert (charlas_disponibles (- ?x 1)))
   ;creamos un nuevo hecho con una charla ya seleccionada
-  (assert (escogida ?nom_candidata ?edad_seleccionada ?tit_candidata ?tem_candidata ?entidad_seleccionada ?edi_candidata))
+  (assert (escogida ?nom_candidata ?edad_candidata ?tit_candidata ?tem_candidata ?entidad_candidata ?edi_candidata))
   ;imprimimos por pantalla la charla que ha sido seleccionada y el numero restante de charlas disponibles
-  (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", de edad" ?edad_seleccionada ", tema: " ?tem_candidata ", entidad: " ?entidad_seleccionada ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
+  (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", de edad" ?edad_candidata ", tema: " ?tem_candidata ", entidad: " ?entidad_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
 
 
@@ -257,16 +262,16 @@
 ; funcion
 (fuzzy-intersection
   (create-fuzzy-value notoriedad poca)
-  (create-fuzzy-value notoriedad mucha)
+  (create-fuzzy-value notoriedad somewhat mucha)
 )
 poca and mucha
 
 (plot-fuzzy-value t ".+*" nil nil
 (create-fuzzy-value notoriedad poca)
-(create-fuzzy-value notoriedad mucha)
+(create-fuzzy-value notoriedad somewhat mucha)
 (fuzzy-intersection
   (create-fuzzy-value notoriedad poca)
-  (create-fuzzy-value notoriedad mucha)
+  (create-fuzzy-value notoriedad somewhat mucha)
   )
 )
 
@@ -288,45 +293,48 @@ poca and mucha
 
 ; A continuación se muestra la gráfica que muestra los valores mucha y poca para notoriedad:
 
-;Linguistic Value: poca (.),  mucha (+),  [ poca ] AND [ mucha ] (*)
-;
+;Fuzzy Value: notoriedad
+;Linguistic Value: poca (.),  somewhat mucha (+),  [ poca ] AND [ somewhat mucha ] (*)
+
 ; 1.00.....................                             +
-; 0.95                     .                           +
-; 0.90                      .
-; 0.85                       .                        +
-; 0.80                                               +
-; 0.75                        .                     +
-; 0.70                         .                   +
-; 0.65                          .                 +
-; 0.60                           .
-; 0.55                            .              +
-; 0.50                             .            +
-; 0.45                              .          +
-; 0.40                                        +
-; 0.35                               .
-; 0.30                                .      +
-; 0.25                                 .    +
-; 0.20                                  .  +
-; 0.15                                   .+
+; 0.95                     .                          ++
+; 0.90                      .                        +
+; 0.85                       .                     ++
+; 0.80                                            +
+; 0.75                        .                  +
+; 0.70                         .                +
+; 0.65                          .              +
+; 0.60                           .            +
+; 0.55                            .          +
+; 0.50                             .        +
+; 0.45                              .      +
+; 0.40
+; 0.35                               .    +
+; 0.30                                .
+; 0.25                                 .
+; 0.20                                  .+
+; 0.15                                   *
 ; 0.10                                    *
-; 0.05                                   * *
+; 0.05                                     *
 ; 0.00***********************************   *************
 ;     |----|----|----|----|----|----|----|----|----|----|
 ;    0.00      2.00      4.00      6.00      8.00     10.00
 
-;Universe of Discourse:  From   0.00  to   10.00
+; Universe of Discourse:  From   0.00  to   10.00
 
-; Como puede verse, la gráfica de ambos valores corta en un valor cercano a 0'10
-; A continuación se muestra una salida con los resultados al ejecutiar el comando (run) y (facts)
-; con las charlas escogidas:
+; La salida al ejecutar los comandos (run) y (facts) son las siguientes:
 
-;f-20    (escogida "Juan" "La economia" Economia 2013) CF 0.08
-;f-22    (escogida "Juan" "espacio" Ciencias 2015) CF 0.08
-;f-24    (escogida "Miguel" "iPhone2" Tecnologia 2014) CF 0.08
-;f-26    (escogida "Miguel" "Mujercitas" Economia 2014) CF 0.08
-;f-28    (escogida "Miguel" "Mujercitas" Economia 2015) CF 0.08
-;f-30    (escogida "Rigoberto" "Mujercitas" Medicina 2016) CF 0.08
-;f-32    (escogida "Pedro" "IA mola" Economia 2016) CF 0.08
-;f-33    (charlas_disponibles 52) CF 0.08
+;f-26    (escogida "Juan" 26 "espacio" Ciencias "URJC" 2015) CF 0.08
+;f-28    (escogida "Miguel" 48 "iPhone2" Tecnologia "IEF" 2014) CF 0.08
+;f-30    (escogida "Miguel" 37 "Mujercitas" Economia "Publica" 2014) CF 0.08
+;f-32    (escogida "Miguel" 34 "Mujercitas" Economia "Politecnica" 2015) CF 0.08
+;f-34    (escogida "Rigoberto" 26 "Mujercitas" Medicina "IE" 2016) CF 0.08
+;f-36    (escogida "Pedro" 40 "IA mola" Economia "Salesforce" 2015) CF 0.08
+;f-38    (escogida "Pedro" 50 "IA mola" Economia "Uc3m" 2016) CF 0.08
+;f-39    (charlas_disponibles 52) CF 0.08
+;f-40    (escogida "Juan" 42 "La economia" Economia "Uc3m" 2013) CF 0.08
 
-; como puede verse el CF es consistente con el puto de corte de la gráfica del resultado
+; las gráficas de notoriedad poca y somewhat mucha se cortan en un punto bajo
+; en este caso las diferentes notoriedades van a tener su propio CF,
+; pero debido a que las diferentes instrucciones de la regla estan relacionadas las unas
+; con las otras mediante un AND, el valor que prevalece es el inferior (0.08)
