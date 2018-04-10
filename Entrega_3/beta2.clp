@@ -23,7 +23,7 @@
 ;La charla 3 y 4 son dadas por la misma persona, con el mismo nombre y tema, pero al ser de ediciones distintas, las deja pasar.
 ;La charla 7 y 8 son del mismo hombre en la misma edicion pero con tema y titulo distintos, por tanto, es correcto.
 
-
+;
 (deffacts charla1
   (charlas_plantilla
     (nombre "Juan")
