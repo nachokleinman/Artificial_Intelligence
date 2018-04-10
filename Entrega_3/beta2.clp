@@ -23,20 +23,24 @@
 ;La charla 3 y 4 son dadas por la misma persona, con el mismo nombre y tema, pero al ser de ediciones distintas, las deja pasar.
 ;La charla 7 y 8 son del mismo hombre en la misma edicion pero con tema y titulo distintos, por tanto, es correcto.
 
-
+;
 (deffacts charla1
   (charlas_plantilla
     (nombre "Juan")
+    (edad 42)
     (titulo_charla "La economia")
     (tema_charla Economia)
+    (entidad Uc3m)
     (edicion_techfest 2013)
   )
 )
 (deffacts charla2
   (charlas_plantilla
     (nombre "Pedro")
+    (edad 67)
     (titulo_charla "La economia")
     (tema_charla Economia)
+    (entidad BBVA)
     (edicion_techfest 2015)
   )
 )
@@ -44,15 +48,19 @@
 (deffacts charla3
   (charlas_plantilla
     (nombre "Pedro")
+    (edad 50)
     (titulo_charla "IA mola")
     (tema_charla Economia)
+    (entidad Uc3m)
     (edicion_techfest 2016)
   )
 )(deffacts charla4
   (charlas_plantilla
     (nombre "Pedro")
+    (edad 40)
     (titulo_charla "IA mola")
     (tema_charla Economia)
+    (entidad Salesforce)
     (edicion_techfest 2015)
   )
 )
@@ -60,8 +68,10 @@
 (deffacts charla5
   (charlas_plantilla
     (nombre "Rigoberto")
+    (edad 26)
     (titulo_charla "Mujercitas")
     (tema_charla Medicina)
+    (entidad IE)
     (edicion_techfest 2016)
   )
 )
@@ -69,8 +79,10 @@
 (deffacts charla6
   (charlas_plantilla
     (nombre "Miguel")
+    (edad 34)
     (titulo_charla "Mujercitas")
     (tema_charla Economia)
+    (entidad Politecnica)
     (edicion_techfest 2015)
   )
 )
@@ -78,32 +90,40 @@
 (deffacts charla7
   (charlas_plantilla
     (nombre "Miguel")
+    (edad 37)
     (titulo_charla "Mujercitas")
     (tema_charla Economia)
+    (entidad publica)
     (edicion_techfest 2014)
   )
 )
 (deffacts charla8
   (charlas_plantilla
     (nombre "Miguel")
+    (edad 50)
     (titulo_charla "iPhone")
     (tema_charla Tecnologia)
+    (entidad BusinesSchool)
     (edicion_techfest 2014)
   )
 )
 (deffacts charla9
   (charlas_plantilla
     (nombre "Miguel")
+    (edad 48)
     (titulo_charla "iPhone2")
     (tema_charla Tecnologia)
+    (entidad IEF)
     (edicion_techfest 2014)
   )
 )
 (deffacts charla10
   (charlas_plantilla
     (nombre "Juan")
+    (edad 26)
     (titulo_charla "espacio")
     (tema_charla Ciencias)
+    (entidad URJC)
     (edicion_techfest 2015)
   )
 )
@@ -188,8 +208,10 @@
   ;usamos una plantilla para manejar las reglas
   (charlas_plantilla
     (nombre ?nom_candidata)
+    (edad ?edad_candidata)
     (titulo_charla ?tit_candidata)
     (edicion_techfest ?edi_candidata)
+    (entidad ?entidad_candidata)
     (tema_charla ?tem_candidata)
   )
 
@@ -197,7 +219,7 @@
 
 (forall
     ;recogemos los datos de las charlas que ya están seleccionadas
-    (escogida ?nom_seleccionada ?tit_seleccionada ?tem_seleccionada ?edi_seleccionada)
+    (escogida ?nom_seleccionada ?edad_seleccionada ?tit_seleccionada ?tem_seleccionada ?entidad_seleccionada ?edi_seleccionada)
     (test
       (or
         ;si las ediciones son diferentes no hace falta controlar nada (puede haber misma charla en diferentes ediciones)
@@ -225,9 +247,9 @@
   (retract ?hecho)
   (assert (charlas_disponibles (- ?x 1)))
   ;creamos un nuevo hecho con una charla ya seleccionada
-  (assert (escogida ?nom_candidata ?tit_candidata ?tem_candidata ?edi_candidata))
+  (assert (escogida ?nom_candidata ?edad_seleccionada ?tit_candidata ?tem_candidata ?entidad_seleccionada ?edi_candidata))
   ;imprimimos por pantalla la charla que ha sido seleccionada y el numero restante de charlas disponibles
-  (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", tema: " ?tem_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
+  (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", de edad" ?edad_seleccionada ", tema: " ?tem_candidata ", entidad: " ?entidad_seleccionada ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
 
 
