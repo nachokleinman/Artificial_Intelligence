@@ -1,5 +1,9 @@
 ;made by @ignacioLavina and @ignaciokleinman
 
+;*****************************************************************
+;************************* Parte 1 *******************************
+;*****************************************************************
+
 ;Entrega 1 Objetivo: familiarizar se con CLIPS, razonamiento clásico sin nada fuzzy)
 
 ;Insertamos el numero total de charlas
@@ -129,8 +133,9 @@
   )
 )
 
-
-
+;*****************************************************************
+;************************* Parte 2 *******************************
+;*****************************************************************
 
 ;Entrega 2 Objetivo: Definición de plantillas y hechos borrosos
 ; 1. Definir una plantilla (template) para declarar hechos borrosos sobre el (escaso,
@@ -197,12 +202,17 @@
   (notoriedades (entidad "URJC") (notoriedad poca))
 )
 
-
+;*****************************************************************
+;************************* Parte 3 *******************************
+;*****************************************************************
 
 ;Entrega 3 Objetivo: Definir reglas con antecedente borroso, uso de modificadores
 
-
-
+;3.1 Definir una regla que incluya en el techfest a las charlas cuya entidad sea de
+;notoriedad más o menos mucha (uso de modificador somewhat) cuyos temas no hayan
+;sido seleccionados previamente sin superar el máximo número de charlas del techfest.
+;Nota: consiste en modificar la regla del apartado 1.2 incluyendo un nuevo antecedente.
+;Ejecutarla cómo única regla y observar qué ocurre.
 
 ;Regla con la logica
 (defrule controlador_charlas
@@ -257,9 +267,10 @@
   (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", de edad" ?edad_candidata ", tema: " ?tem_candidata ", entidad: " ?entidad_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
 
+;*****************************************************************
+;*********************** GRAFICAS ********************************
+;*****************************************************************
 
-
-; funcion
 (fuzzy-intersection
   (create-fuzzy-value notoriedad poca)
   (create-fuzzy-value notoriedad somewhat mucha)
@@ -279,11 +290,7 @@ poca and mucha
 (run)
 (facts)
 
-;3.1 Definir una regla que incluya en el techfest a las charlas cuya entidad sea de
-;notoriedad más o menos mucha (uso de modificador somewhat) cuyos temas no hayan
-;sido seleccionados previamente sin superar el máximo número de charlas del techfest.
-;Nota: consiste en modificar la regla del apartado 1.2 incluyendo un nuevo antecedente.
-;Ejecutarla cómo única regla y observar qué ocurre.
+
 
 
 ;*****************************************************************
@@ -334,7 +341,7 @@ poca and mucha
 ;f-39    (charlas_disponibles 52) CF 0.08
 ;f-40    (escogida "Juan" 42 "La economia" Economia "Uc3m" 2013) CF 0.08
 
-; las gráficas de notoriedad poca y somewhat mucha se cortan en un punto bajo
-; en este caso las diferentes notoriedades van a tener su propio CF,
-; pero debido a que las diferentes instrucciones de la regla estan relacionadas las unas
-; con las otras mediante un AND, el valor que prevalece es el inferior (0.08)
+;Las gráficas de notoriedad "poca" y "somewhat mucha" se cortan en un punto bajo
+;en este caso las diferentes notoriedades van a tener su propio CF, pero debido
+;a que las diferentes instrucciones de la regla estan relacionadas las unas
+;con las otras mediante un AND, el valor que prevalece es el inferior (0.08)

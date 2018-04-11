@@ -1,5 +1,9 @@
 ;made by @ignacioLavina and @ignaciokleinman
 
+;*****************************************************************
+;************************* Parte 1 *******************************
+;*****************************************************************
+
 ;Entrega 1 Objetivo: familiarizar se con CLIPS, razonamiento clásico sin nada fuzzy)
 
 ;Insertamos el numero total de charlas
@@ -129,8 +133,9 @@
   )
 )
 
-
-
+;*****************************************************************
+;************************* Parte 2 *******************************
+;*****************************************************************
 
 ;Entrega 2 Objetivo: Definición de plantillas y hechos borrosos
 ; 1. Definir una plantilla (template) para declarar hechos borrosos sobre el (escaso,
@@ -197,11 +202,19 @@
   (notoriedades (entidad "URJC") (notoriedad poca))
 )
 
+;*****************************************************************
+;************************* Parte 3 *******************************
+;*****************************************************************
 
 
 ;Entrega 3 Objetivo: Definir reglas con antecedente borroso, uso de modificadores
 
-
+;3.2 Definir reglas con antecedente borroso, uso de modificadores
+;Definir una regla que incluya en el techfest a las charlas cuya entidad sea de
+;no poca notoriedad (modificador not), de interés medio o alto (or), cuyos temas
+;no hayan sido seleccionados previamente sin superar el máximo número de charlas
+;del techfest. Nota: consiste en modificar la regla del apartado 1.2 incluyendo
+;dos nuevos antecedente. Ejecutarla cómo única regla y observar qué ocurre.
 
 
 ;Regla con la logica
@@ -259,7 +272,9 @@
   (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", de edad" ?edad_candidata ", tema: " ?tem_candidata ", entidad: " ?entidad_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
 )
 
-; funcion
+;*****************************************************************
+;*********************** GRAFICAS ********************************
+;*****************************************************************
 
   (fuzzy-intersection
     (create-fuzzy-value interes alto)
@@ -312,70 +327,39 @@
 (run)
 (facts)
 
+;*****************************************************************
+;****************** ANÁLISIS DE RESULTADOS ***********************
+;*****************************************************************
 
-;3.2 Definir una regla que incluya en el techfest a las charlas cuya entidad sea
-;de no poca notoriedad (modificador not), de interés medio o alto (or), cuyos temas
-;no hayan sido seleccionados previamente sin superar el máximo número de charlas del
-;techfest. Nota: consiste en modificar la regla del apartado 1.2 incluyendo dos nuevos antecedente.
-;Ejecutarla cómo única regla y observar qué ocurre.
+; A continuación se muestra la gráfica que muestra los valores de interés medio y very alto
+;Linguistic Value: very alto (-),  medio (+),  [ very alto ] AND [ medio ] (.)
 
-;Fuzzy Value: interes
-;Linguistic Value: alto (-),  medio (+),  [ alto ] AND [ medio ] (.)
-
-; 1.00                         +        -----------------
-; 0.95                        + +      -
-; 0.90                       +   +    -
-; 0.85                               -
+; 1.00                         +              -----------
+; 0.95                        + +            -
+; 0.90                       +   +
+; 0.85                                      -
 ; 0.80                      +     +
-; 0.75                              -
-; 0.70                             -
-; 0.65                     +       .
-; 0.60
-; 0.55                            .
-; 0.50                    +         .
-; 0.45                           .
-; 0.40
-; 0.35                   +      .    .
-; 0.30
-; 0.25                         .
-; 0.20                  +             .
-; 0.15                        .
-; 0.10                 +     .         .
-; 0.05                +     .           .
-; 0.00......................             ................
-;     |----|----|----|----|----|----|----|----|----|----|
-;    0.00      2.00      4.00      6.00      8.00     10.00
-
-;Universe of Discourse:  From   0.00  to   10.00
-
-;Fuzzy Value: interes
-;Linguistic Value: medio ($),  escaso (&),  [ medio ] AND [ escaso ] (*)
-
-; 1.00&&&&&&&&&&&&&&&&         $
-; 0.95                &       $ $
-; 0.90                 &     $   $
-; 0.85
-; 0.80                  &   $     $
 ; 0.75
-; 0.70
-; 0.65                   & $       $
+; 0.70                                     -
+; 0.65                     +       +
 ; 0.60
 ; 0.55
-; 0.50                    *         $
-; 0.45
+; 0.50                    +         +
+; 0.45                                    -
 ; 0.40
-; 0.35                   *           $
-; 0.30                     *
-; 0.25
-; 0.20                  *   *         $
+; 0.35                   +           +
+; 0.30
+; 0.25                                   -
+; 0.20                  +             +
 ; 0.15
-; 0.10                 *     *         $
-; 0.05                *                 $
-; 0.00****************        ***************************
+; 0.10                 +               +
+; 0.05                +                 +-
+; 0.00.................................. ................
 ;     |----|----|----|----|----|----|----|----|----|----|
 ;    0.00      2.00      4.00      6.00      8.00     10.00
 
 ;Universe of Discourse:  From   0.00  to   10.00
+
 
 ;Fuzzy Value: notoriedad
 ;Linguistic Value: not poca (.),  mucha (+),  [ not poca ] AND [ mucha ] (*)
@@ -406,16 +390,6 @@
 ;
 ;Universe of Discourse:  From   0.00  to   10.00
 
-;f-35    (noto Economia) CF 0.25
-;f-36    (noto Ciencias) CF 0.25
-;f-37    (noto Medicina) CF 1.00
-;f-38    (noto Tecnologia) CF 1.00
-;f-39    (interes1 Economia) CF 0.25
-;f-40    (interes1 Ciencias) CF 1.00
-;f-41    (interes1 Medicina) CF 1.00
-;f-42    (interes1 Tecnologia) CF 1.00
-
-
 ;(escogida "Juan" "La economia" Economia 2013) CF 0.25
 ;f-22    (escogida "Juan" "espacio" Ciencias 2015) CF 0.25
 ;f-24    (escogida "Miguel" "iPhone2" Tecnologia 2014) CF 0.25
@@ -425,3 +399,13 @@
 ;f-32    (escogida "Pedro" "IA mola" Economia 2016) CF 0.25
 ;f-33    (charlas_disponibles 52) CF 0.25
 ;f-34    (escogida "Pedro" "La economia" Economia 2015) CF 0.25
+
+; Se definen dos reglas que incluyen aquellas charlas cuya entidad sea
+; de "no poca" notoriedad y de interés "medio" o "alto". EL valor que resulta de CF
+; 0.25 en todos. Esto es debido a que el conjunto de las reglas están concatenadas con AND,
+; y debido a esto el valor que va a prevalecer será el menor de los valores, como en este caso
+; hay dos tipos: notoriedad e intereses, y resulta que el valor comun es el comentado anteriormente,
+; es decir, 0.25. Ademas, es importante resaltar que el modificador "not" no muestra lo contrario.
+; En otras palabras, al poner not poca, no significa que no vaya a mostrar aquellas entidades de
+; notoriedad poca. Lo que significa es que su funcion esta invertida, siendo 1-y. Por eso, como se ve
+; la grafica, la funcion "not poca" es distinta. 

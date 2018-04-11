@@ -1,10 +1,8 @@
 ;made by @ignacioLavina and @ignaciokleinman
 
-
 ;*****************************************************************
 ;************************* Parte 1 *******************************
 ;*****************************************************************
-
 
 ;Entrega 1 Objetivo: familiarizar se con CLIPS, razonamiento clásico sin nada fuzzy)
 
@@ -140,7 +138,6 @@
 ;************************* Parte 2 *******************************
 ;*****************************************************************
 
-
 ;Entrega 2 Objetivo: Definición de plantillas y hechos borrosos
 ; 1. Definir una plantilla (template) para declarar hechos borrosos sobre el (escaso,
 ; medio y alto) interés de un tema utilizando las funciones z, pi y s respectivamente.
@@ -251,9 +248,9 @@
     (printout t "Se introduce la charla " ?tit_candidata ", con ponente: " ?nom_candidata ", de edad" ?edad_candidata ", tema: " ?tem_candidata ", entidad: " ?entidad_candidata ", de la dicion: " ?edi_candidata ". Quedan " (- ?x 1) " charlas disponibles."  crlf)
   )
 
-  ;*****************************************************************
-  ;*********************** GRAFICAS ********************************
-  ;*****************************************************************
+;*****************************************************************
+;*********************** GRAFICAS ********************************
+;*****************************************************************
 
 (fuzzy-intersection
   (create-fuzzy-value interes very alto)
@@ -278,7 +275,7 @@ alta and medio
 ;****************** ANÁLISIS DE RESULTADOS ***********************
 ;*****************************************************************
 
-; A continuación se muestra la gráfica que muestra los valores de interés medio y alto
+; A continuación se muestra la gráfica que muestra los valores de interés medio y very alto
 ;Linguistic Value: very alto (-),  medio (+),  [ very alto ] AND [ medio ] (.)
 
 ; 1.00                         +              -----------
@@ -307,14 +304,15 @@ alta and medio
 
 ;Universe of Discourse:  From   0.00  to   10.00
 
-
-;Tanto Ciencias como Tecnologia son de Interes alto, por lo que su CF es de un valor alto
-;al contrario que el tema de Medicina, que es de interes medio cuyo punto de corte entre
-; graficas medio y very alto, en este caso 0.01
-; como puede verse, no selecciona ninguna charla cuyo interés sea bajo (al no cortar la gráfica interés bajo-very alto)
-; Esto tiene consistencia con las salidas que dan como resultado:
-
 ;f-17    (escogida "Juan" 26 "espacio" Ciencias "URJC" 2015) CF 0.88
 ;f-19    (escogida "Miguel" 48 "iPhone2" Tecnologia "IEF" 2014) CF 0.88
 ;f-20    (charlas_disponibles 57) CF 0.01
 ;f-21    (escogida "Rigoberto" 26 "Mujercitas" Medicina "IE" 2016) CF 0.01
+
+;Tanto Ciencias como Tecnologia son de Interes alto, por lo que su CF es de un valor alto
+;al contrario que el tema de Medicina, que es de interes medio cuyo punto de corte entre
+;graficas medio y very alto, en este caso 0.01. Como puede verse, no selecciona ninguna
+;charla cuyo interés sea bajo (al no cortar la gráfica interés bajo-very alto).
+;Esto tiene consistencia con las salidas que dan como resultado, Ciencias y Tecnología (Interes alto)
+;con un CF alto de 0.88 y Mecicina (Interes medio) con un CF bajo de 0.01. Ademas Economia no aparece
+;ya que su interes es bajo
