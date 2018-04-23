@@ -13,11 +13,11 @@ Ejercicios a realizar en FuzzyCLIPS:
 
 1. *Entrega 1 Objetivo: familiarizar se con CLIPS, razonamiento clásico sin nada fuzzy)*
 
-⋅⋅1. Definir un hecho simple que indique el número de charlas que se impartirán en una determinada edición del techfest.
+1. Definir un hecho simple que indique el número de charlas que se impartirán en una determinada edición del techfest.
 
-⋅⋅2. Definir una plantilla (template) para declarar hechos estructurados concretos sobre los ponentes: su nombre, su edad concreta, titulo de la charla (hace de identificador de la misma), tema de la charla, entidad a la que pertenece y el año del techfest en el que opta a participar. Nota: un mismo ponente puede proponer varias charlas.
+2. Definir una plantilla (template) para declarar hechos estructurados concretos sobre los ponentes: su nombre, su edad concreta, titulo de la charla (hace de identificador de la misma), tema de la charla, entidad a la que pertenece y el año del techfest en el que opta a participar. Nota: un mismo ponente puede proponer varias charlas.
 
-⋅⋅3. Definir una regla que como consecuente añada como hecho simple la selección del titulo de una charla para una edición particular del techfest, y que como antecedente elija charlas de temas no seleccionados previamente sin repetir ponente ni superar el numero total de charlas del tehcfest. Ejecutarla con hechos creados adhoc a vuestro gusto y observar qué ocurre.
+3. Definir una regla que como consecuente añada como hecho simple la selección del titulo de una charla para una edición particular del techfest, y que como antecedente elija charlas de temas no seleccionados previamente sin repetir ponente ni superar el numero total de charlas del tehcfest. Ejecutarla con hechos creados adhoc a vuestro gusto y observar qué ocurre.
 
 2. *Entrega 2 Objetivo: Definición de plantillas y hechos borrosos*
 
