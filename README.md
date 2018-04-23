@@ -12,7 +12,7 @@ Para llevar a cabo dicha selección tendrán en cuenta aspectos (algunos subje
 Ejercicios a realizar en FuzzyCLIPS:
 
 1. a
-  1. b
+  .1. b
 
 1. *Entrega 1 Objetivo: familiarizar se con CLIPS, razonamiento clásico sin nada fuzzy)*
   1. Definir un hecho simple que indique el número de charlas que se impartirán en una determinada edición del techfest.
