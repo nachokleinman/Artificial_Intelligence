@@ -11,12 +11,15 @@ Los organizadores del TECHFEST (https://t3chfest.uc3m.es/2018/?lang=es) se han p
 Para llevar a cabo dicha selección tendrán en cuenta aspectos (algunos subjetivos) como el interés del tema de la charla, el solapamiento del tema con otras charlas, la edad del ponente y la notoriedad de la entidad a la que pertenece el ponente. Una vez realizado el evento, se modificarán las valoraciones de algunos de estos aspectos de acuerdo a la asistencia y la opinión de los asistentes de cara a mejorar el procedimiento de selección en años venideros.
 Ejercicios a realizar en FuzzyCLIPS:
 
+1. a
+  1. b
+
 1. *Entrega 1 Objetivo: familiarizar se con CLIPS, razonamiento clásico sin nada fuzzy)*
   1. Definir un hecho simple que indique el número de charlas que se impartirán en una determinada edición del techfest.
   2. Definir una plantilla (template) para declarar hechos estructurados concretos sobre los ponentes: su nombre, su edad concreta, titulo de la charla (hace de identificador de la misma), tema de la charla, entidad a la que pertenece y el año del techfest en el que opta a participar. Nota: un mismo ponente puede proponer varias charlas.
   3. Definir una regla que como consecuente añada como hecho simple la selección del titulo de una charla para una edición particular del techfest, y que como antecedente elija charlas de temas no seleccionados previamente sin repetir ponente ni superar el numero total de charlas del tehcfest. Ejecutarla con hechos creados adhoc a vuestro gusto y observar qué ocurre.
 
-2. *Entrega 2 Objetivo: Definición de plantillas y hechos borrosos*
+2. *Entrega 2 Objetivo: Definición de plantillas y hechos borrosos.*
 
 2.0.- Definir una plantilla (template) para declarar hechos borrosos sobre el (escaso, medio y alto) interés de un tema utilizando las funciones s, pi y z z, pi y s respectivamente.
 2.1.- Definir una plantilla para declarar hechos borrosos sobre la (poca y mucha) notoriedad de una la entidad a la que pertenece el ponente usando una definición por puntos.
