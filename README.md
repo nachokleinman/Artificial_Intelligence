@@ -18,11 +18,11 @@ Ejercicios a realizar en FuzzyCLIPS:
   - Definir una regla que como consecuente añada como hecho simple la selección del titulo de una charla para una edición particular del techfest, y que como antecedente elija charlas de temas no seleccionados previamente sin repetir ponente ni superar el numero total de charlas del tehcfest. Ejecutarla con hechos creados adhoc a vuestro gusto y observar qué ocurre.
 
 2. *Entrega 2 Objetivo: Definición de plantillas y hechos borrosos.*
-  - Definir una plantilla (template) para declarar hechos borrosos sobre el (escaso, medio y alto) interés de un tema utilizando las funciones s, pi y z z, pi y s respectivamente.
-  - Definir una plantilla para declarar hechos borrosos sobre la (poca y mucha) notoriedad de una la entidad a la que pertenece el ponente usando una definición por puntos.
-  - Definir una plantilla (template) para declarar hechos borrosos sobre la edad del ponente (joven, madurito, adulto, prejubilado) interés de un tema utilizando una definición por puntos.
-  - Declarar el interés de cada tema propuesto como hechos borrosos usando la plantilla del apartado 2.0. Nota: puede haber más de una charla de un mismo tema. Por ejemplo debéis declarar hechos como que el interés del tema blockchain es escaso y el de los videojuegos alto.
-  - Declarar la notoriedad de cada entidad a la que pertenece el ponente usando la plantilla del aparatado 2-1. Nota: puede haber más de un ponente de una misma entidad. Por ejemplo debéis declarar hechos como que la notoriedad de la entidad Electronic Arts es mucha.
+  - Definir una plantilla (template) para declarar hechos borrosos sobre el (escaso, medio y alto) interés de un tema utilizando las funciones z, pi y s respectivamente.
+  - Definir una plantilla para declarar hechos borrosos sobre la (poca y mucha) notoriedad de una entidad usando una definición por puntos.
+  - Definir una plantilla (template) para declarar hechos borrosos sobre la edad del ponente (joven, madurito, adulto, prejubilado) utilizando una definición por puntos.
+  - Declarar el interés de cada tema propuesto como hechos borrosos usando la plantilla del apartado. Por ejemplo debéis declarar hechos como que el interés del tema blockchain es escaso y el de los videojuegos alto.
+  - Declarar la notoriedad de cada entidad a la que pertenece el ponente usando la plantilla del aparatado. Por ejemplo debéis declarar hechos como que la notoriedad de la entidad Electronic Arts es mucha.
 
 3. *Entrega 3 Objetivo: Definir reglas con antecedente borroso, uso de modificadores*
   - Definir una regla que incluya en el techfest a las charlas de interés muy alto (uso de modificador very) cuyos temas no hayan sido seleccionados previamente sin superar el máximo número de charlas del techfest. Nota: consiste en modificar la regla del apartado 1.2 incluyendo un nuevo antecedente. Ejecutarla como única regla y observar qué ocurre.
